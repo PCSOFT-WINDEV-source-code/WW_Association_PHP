@@ -1,0 +1,1 @@
+insert into MessageReceived (MessageReceivedID,MessageObject,MessageText,MemberID,Sender,EmailAddress,DateTime,SenderID) values (6,'Memo','<P><FONT face=Verdana,Geneva,Arial,Helvetica><FONT size=2>Dont forget to post my advert!<BR></FONT></FONT></P>',1,'Administrator','admin@admin.com','20100928182600',1)

@@ -1,0 +1,1 @@
+insert into NewsReaction (NewsReactionID,Author,DateTime,Text,NewsID) values (19,'Patrick','20101118105800','<font size=\"1\"><span style=\"font-family:Verdana,Geneva,Arial,Helvetica;\">You can react to the news.</span></font><br>',11)

@@ -1,0 +1,370 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : ManageSiteConfig
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1878b57008f52517
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  type_code : 31
+  p_codes :
+   -
+     code : |1+
+      
+      CONSTANT
+      	
+      	CST_TEXT = 1
+      	CST_IMAGE = 2
+      	
+      	
+      	PRESIDENT_WORD = 5
+      	PRESIDENT_PHOTO = 6
+      	PRESENTATION_ASSO = 7
+      	ASSO_CONTACT = 8
+      	TITLE_SITE = 9
+      	
+      END
+     type : 720896
+  procedures :
+   -
+     name : ReadPresidentWord
+     procedure_id : 1763358746906862871
+     type_code : 15
+     code : |1-
+      // Summary: Used to retrieve the president's word saved in the database
+      // Syntax:
+      //[ <Result> = ] ReadPresidentWord ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: President's word
+      
+      PROCEDURE ReadPresidentWord()
+      
+      sPresidentWord is string
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESIDENT_WORD)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	sPresidentWord = SiteConfiguration.Text
+      	
+      	RESULT sPresidentWord
+      
+      ELSE
+      	
+      	RESULT ""
+      		
+      END
+     type : 458752
+   -
+     name : ReadPresidentPhoto
+     procedure_id : 1763358746906928407
+     type_code : 15
+     code : |1-
+      // Summary: Used to retrieve the photo of the president saved in the database
+      // Syntax:
+      //[ <Result> = ] ReadPresidentPhoto ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	Undefined type: Photo of the president of the association
+      
+      PROCEDURE ReadPresidentPhoto()
+      
+      bufPresidentPhoto is buffer
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESIDENT_PHOTO)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	bufPresidentPhoto = SiteConfiguration.Image
+      	
+      	RESULT bufPresidentPhoto
+      	
+      ELSE
+      	
+      	RESULT ""
+      	
+      END
+     type : 458752
+   -
+     name : ReadAssoPresentation
+     procedure_id : 1763358746906993943
+     type_code : 15
+     code : |1-
+      // Summary: Used to retrieve the presentation of the association saved in the database
+      // Syntax:
+      //[ <Result> = ] ReadAssoPresentation ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: Presentation of the association
+      
+      PROCEDURE ReadAssoPresentation()
+      
+      sAssoPresentation is string
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESENTATION_ASSO)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	sAssoPresentation = SiteConfiguration.Text
+      	
+      	RESULT sAssoPresentation
+      	
+      ELSE
+      	
+      	RESULT ""
+      	
+      END
+     type : 458752
+   -
+     name : ReadAssoContact
+     procedure_id : 1763358746907059479
+     type_code : 15
+     code : |1+
+      // Summary:  Used to retrieve the contact of the association saved in the database
+      // Syntax:
+      //[ <Result> = ] ReadAssoContact()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: Contact of the association
+      
+      PROCEDURE ReadAssoContact()
+      
+      sAssoContact is string
+      
+      HReadSeekFirst(SiteConfiguration,Information,ASSO_CONTACT)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	sAssoContact = SiteConfiguration.Text
+      	
+      	RESULT sAssoContact
+      	
+      ELSE
+      	
+      	RESULT ""
+      	
+      END
+     type : 458752
+   -
+     name : WritePresidentPhoto
+     procedure_id : 1763358746907125015
+     type_code : 15
+     code : |1+
+      // Summary: Save the photo of the president
+      // Syntax:
+      //WritePresidentPhoto (<sPhoto>)
+      //
+      // Parameters:
+      //	sPhoto: Path of the photo file that must be saved as photo of the president of the association
+      // Return value:
+      // 	None
+      
+      
+      PROCEDURE WritePresidentPhoto(sPhoto)
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESIDENT_PHOTO)
+      
+      HLinkMemo(SiteConfiguration,Image,sPhoto)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	HModify(SiteConfiguration)
+      	
+      ELSE
+      	
+      	SiteConfiguration.Information = PRESIDENT_PHOTO
+      	SiteConfiguration.InfoType = CST_IMAGE
+      	
+      	HAdd(SiteConfiguration)	
+      END
+      
+      
+     type : 458752
+   -
+     name : WritePresidentWord
+     procedure_id : 1763358746907190551
+     type_code : 15
+     code : |1+
+      // Summary: Saves the president's word in the database
+      // Syntax:
+      //WritePresidentWord (<sPresidentWord>)
+      //
+      // Parameters:
+      //	sPresidentWord: Text for the president's word
+      // Return value:
+      // 	None
+      
+      PROCEDURE WritePresidentWord(sPresidentWord)
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESIDENT_WORD)
+      
+      SiteConfiguration.Text = sPresidentWord
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	HModify(SiteConfiguration)
+      	
+      ELSE
+      	
+      	SiteConfiguration.Information = PRESIDENT_WORD
+      	SiteConfiguration.InfoType = CST_TEXT
+      	
+      	HAdd(SiteConfiguration)
+      	
+      END
+     type : 458752
+   -
+     name : WriteAssoContact
+     procedure_id : 1763358746907256087
+     type_code : 15
+     code : |1+
+      // Summary: Saves the text for the contact of the association in the database
+      // Syntax:
+      //WriteAssoContact (<sAssoContact>)
+      //
+      // Parameters:
+      // 	sAssoContact: Text for the contact of the association 
+      // Return value:
+      // 	None
+      PROCEDURE WriteAssoContact(sAssoContact)
+      
+      HReadSeekFirst(SiteConfiguration,Information,ASSO_CONTACT)
+      
+      SiteConfiguration.Text = sAssoContact
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	HModify(SiteConfiguration)
+      	
+      ELSE
+      	
+      	SiteConfiguration.Information = ASSO_CONTACT
+      	SiteConfiguration.InfoType = CST_TEXT
+      	
+      	HAdd(SiteConfiguration)
+      	
+      END
+      
+     type : 458752
+   -
+     name : WriteAssoPresentation
+     procedure_id : 1763358746907321623
+     type_code : 15
+     code : |1+
+      // Summary: Saves the text for the presentation of the association in the database
+      // Syntax:
+      //WriteAssoPresentation (<sAssoPresentation>)
+      //
+      // Parameters:
+      // 	sAssoPresentation:  Text for the presentation of the association 
+      // Return value:
+      
+      PROCEDURE WriteAssoPresentation(sAssoPresentation)
+      
+      HReadSeekFirst(SiteConfiguration,Information,PRESENTATION_ASSO)
+      
+      SiteConfiguration.Text = sAssoPresentation
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	HModify(SiteConfiguration)
+      	
+      ELSE
+      	
+      	SiteConfiguration.Information = PRESENTATION_ASSO
+      	SiteConfiguration.InfoType = CST_TEXT
+      	
+      	HAdd(SiteConfiguration)
+      	
+      END
+     type : 458752
+   -
+     name : WriteTitle
+     procedure_id : 1763358746907387159
+     type_code : 15
+     code : |1+
+      // Summary: Saves the title of the site in the database
+      // Syntax:
+      //WriteTitle (<sTitle>)
+      //
+      // Parameters:
+      //	sTitle: The title
+      // Return value:
+      // 	None
+      
+      PROCEDURE WriteTitle(sTitle)
+      
+      HReadSeekFirst(SiteConfiguration,Information,TITLE_SITE)
+      
+      SiteConfiguration.Text = sTitle
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	HModify(SiteConfiguration)
+      	
+      ELSE
+      	
+      	SiteConfiguration.Information = TITLE_SITE
+      	SiteConfiguration.InfoType = CST_TEXT
+      	
+      	HAdd(SiteConfiguration)
+      	
+      END
+     type : 458752
+   -
+     name : ReadTitle
+     procedure_id : 1763358746907452695
+     type_code : 15
+     code : |1-
+      // Summary: Used to retrieve the title of the site in the database
+      // Syntax:
+      //[ <Result> = ] ReadTitle ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	string: Title of the site
+      
+      PROCEDURE ReadTitle()
+      
+      sTitle is string
+      
+      HReadSeekFirst(SiteConfiguration,Information,TITLE_SITE)
+      
+      IF HFound(SiteConfiguration) THEN
+      	
+      	sTitle = SiteConfiguration.Text
+      	
+      	RESULT sTitle
+      
+      ELSE
+      	
+      	RESULT "The association !"
+      		
+      END
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_ProcéduresGlobales1
+resources :
+ string_res :
+  identifier : 0x1cc85c36004b4b0e
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

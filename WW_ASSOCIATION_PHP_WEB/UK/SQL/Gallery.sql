@@ -1,0 +1,1 @@
+insert into Gallery (GalleryID,Title,Specification,DateTime,Author,IsPrivate) values (8,'This is a photo gallery','<font face=\"Verdana,Geneva,Arial,Helvetica\" size=\"2\"><font size=\"2\">This is a gallery where some photos can be added.</font><br></font>','20100929193200','Administrator',0)
